@@ -1,0 +1,55 @@
+ALTER TABLE Account CHANGE account email VARCHAR(50);
+ALTER TABLE Account MODIFY email VARCHAR(255); 
+ALTER TABLE Account ADD COLUMN (id INT auto_increment primary key, password VARCHAR(40), createdOn DATETIME, modifiedOn DATETIME);
+
+SHOW COLUMNS FROM Account;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| email      | varchar(255) | YES  |     | NULL    |                |
+| password   | varchar(40)  | YES  |     | NULL    |                |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
++------------+--------------+------+-----+---------+----------------+
+
+
+ALTER TABLE AddressBook CHANGE addressbook name VARCHAR(25);
+ALTER TABLE AddressBook MODIFY name VARCHAR(255);
+ALTER TABLE AddressBook ADD COLUMN (id INT auto_increment primary key, createdOn DATETIME, modifiedOn DATETIME);  
+ALTER TABLE AddressBook ADD COLUMN accountId INT;
+ALTER TABLE AddressBook ADD FOREIGN KEY (accountId) REFERENCES Account (id);
+
+SHOW COLUMNS FROM AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| name       | varchar(255) | YES  |     | NULL    |                |
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
+| accountId  | int(11)      | YES  | MUL | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE Entry CHANGE entry addressBookId VARCHAR(25);
+ALTER TABLE Entry MODIFY addressBookId INT;
+ALTER TABLE Entry ADD COLUMN (id INT auto_increment primary key, firstName VARCHAR(255), lastName VARCHAR(255), birthday DATETIME, type ENUM("home", "work", "other"), subtype ENUM("phone", "address", "email"), contentLineOne VARCHAR(255), contentLineTwo VARCHAR(255), contentLineThree VARCHAR(255), contentLinFour VARCHAR(255), contentLineFive VARCHAR(255));
+ALTER TABLE Entry ADD FOREIGN KEY (addressBookId) REFERENCES AddressBook (id);
+
+SHOW COLUMNS FROM Entry;
++------------------+---------------------------------+------+-----+---------+----------------+
+| Field            | Type                            | Null | Key | Default | Extra          |
++------------------+---------------------------------+------+-----+---------+----------------+
+| addressBookId    | int(11)                         | YES  | MUL | NULL    |                |
+| id               | int(11)                         | NO   | PRI | NULL    | auto_increment |
+| firstName        | varchar(255)                    | YES  |     | NULL    |                |
+| lastName         | varchar(255)                    | YES  |     | NULL    |                |
+| birthday         | datetime                        | YES  |     | NULL    |                |
+| type             | enum('home','work','other')     | YES  |     | NULL    |                |
+| subtype          | enum('phone','address','email') | YES  |     | NULL    |                |
+| contentLineOne   | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineTwo   | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineThree | varchar(255)                    | YES  |     | NULL    |                |
+| contentLinFour   | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFive  | varchar(255)                    | YES  |     | NULL    |                |
++------------------+---------------------------------+------+-----+---------+----------------+
