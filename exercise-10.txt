@@ -1,0 +1,47 @@
+CREATE DATABASE hotel;
+USE hotel;
+CREATE TABLE Rooms (roomId INT primary key, roomType VARCHAR(25), windows CHAR(1), carpet ENUM("yes", "no"), kitchen ENUM("yes", "no"));
+SHOW COLUMNS FROM Rooms;
++----------+------------------+------+-----+---------+-------+
+| Field    | Type             | Null | Key | Default | Extra |
++----------+------------------+------+-----+---------+-------+
+| roomId   | int(11)          | NO   | PRI | NULL    |       |
+| roomType | varchar(25)      | YES  |     | NULL    |       |
+| windows  | char(1)          | YES  |     | NULL    |       |
+| carpet   | enum('yes','no') | YES  |     | NULL    |       |
+| kitchen  | enum('yes','no') | YES  |     | NULL    |       |
++----------+------------------+------+-----+---------+-------+
+
+CREATE TABLE Bookings (roomId INT primary key, bookingFrom DATETIME, bookingTo DATETIME);
+ALTER TABLE Bookings ADD FOREIGN KEY (roomId) REFERENCES Rooms (roomId);
+SHOW COLUMNS FROM Bookings;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| roomId      | int(11)  | NO   | PRI | NULL    |       |
+| bookingFrom | datetime | YES  |     | NULL    |       |
+| bookingTo   | datetime | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+
+CREATE TABLE Beds (roomId INT primary key, kingsize CHAR(1), queensize CHAR(1), singlesize CHAR(1), cribs CHAR(1));
+ALTER TABLE Beds ADD FOREIGN KEY (roomId) REFERENCES Rooms (roomId);
+SHOW COLUMNS FROM Beds;
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| roomId     | int(11) | NO   | PRI | NULL    |       |
+| kingsize   | char(1) | YES  |     | NULL    |       |
+| queensize  | char(1) | YES  |     | NULL    |       |
+| singlesize | char(1) | YES  |     | NULL    |       |
+| cribs      | char(1) | YES  |     | NULL    |       |
++------------+---------+------+-----+---------+-------+
+
+CREATE TABLE Floor (roomId INT primary key, floorNumber CHAR (2));
+ALTER TABLE Floor ADD FOREIGN KEY (roomId) REFERENCES Rooms (roomId);
+SHOW COLUMNS FROM Floor;
++-------------+---------+------+-----+---------+-------+
+| Field       | Type    | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| roomId      | int(11) | NO   | PRI | NULL    |       |
+| floorNumber | char(2) | YES  |     | NULL    |       |
++-------------+---------+------+-----+---------+-------+
