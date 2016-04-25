@@ -1,0 +1,6 @@
+USE decodemtl_addressbook
+
+CREATE TABLE Account (account VARCHAR(25));
+CREATE TABLE decodemtl_addressbook.AddressBook (addressbook VARCHAR(25));
+CREATE TABLE Entry (entry VARCHAR(25));
+CREATE TABLE Test (test VARCHAR(25));
