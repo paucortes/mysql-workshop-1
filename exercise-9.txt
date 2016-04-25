@@ -1,0 +1,25 @@
+CREATE DATABASE hatching_chick;
+USE hatching_chick;
+
+CREATE TABLE Chickens (chickenId INT primary key, type ENUM("rooster", "hen"));
+CREATE TABLE Dates (chickenId INT, layDate DATETIME, hatchingDate DATETIME, maturityDate DATETIME, deathDate DATETIME);
+ALTER TABLE Dates ADD FOREIGN KEY (chickenId) REFERENCES Chickens (chickenId);
+
+SHOW COLUMNS FROM Chickens;
++-----------+-----------------------+------+-----+---------+-------+
+| Field     | Type                  | Null | Key | Default | Extra |
++-----------+-----------------------+------+-----+---------+-------+
+| chickenId | int(11)               | NO   | PRI | NULL    |       |
+| type      | enum('rooster','hen') | YES  |     | NULL    |       |
++-----------+-----------------------+------+-----+---------+-------+
+
+SHOW COLUMNS FROM Dates;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| chickenId    | int(11)  | YES  | MUL | NULL    |       |
+| layDate      | datetime | YES  |     | NULL    |       |
+| hatchingDate | datetime | YES  |     | NULL    |       |
+| maturityDate | datetime | YES  |     | NULL    |       |
+| deathDate    | datetime | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
